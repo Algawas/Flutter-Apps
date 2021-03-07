@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'question.dart';
 
 void main() => runApp(Quizzler());
 
@@ -25,6 +26,32 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
+  int questionIndex = 0;
+  List<Icon> score = [];
+
+  // Question q1 = Question('You can lead a cow downstairs but not upstairs.', false);
+  // Question q2 = Question('Approximately one quarter of human bones are in the feet.', true);
+  // Question q3 = Question('A slug\'s blood is green.', true);
+  List<Question> questions = [
+    Question('You can lead a cow downstairs but not upstairs.', false),
+    Question('Approximately one quarter of human bones are in the feet.', true),
+    Question('You can lead a cow downstairs but not upstairs.', true)
+  ];
+
+  void addScore(bool ans) {
+    if (ans == questions[questionIndex].answer) {
+      setState(() {
+        score.add(Icon(Icons.check, color: Colors.green));
+        questionIndex++;
+      });
+    } else {
+      setState(() {
+        score.add(Icon(Icons.close, color: Colors.red));
+        questionIndex++;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -37,7 +64,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                'This is where the question text will go.',
+                questions[questionIndex].questionText,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -61,7 +88,7 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                //The user picked true.
+                addScore(true); //The user picked true.
               },
             ),
           ),
@@ -79,12 +106,12 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                //The user picked false.
+                addScore(false);
               },
             ),
           ),
         ),
-        //TODO: Add a Row here as your score keeper
+        Row(children: score),
       ],
     );
   }

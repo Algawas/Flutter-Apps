@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(
-    MaterialApp(
+void main() => runApp(AppPage());
+
+class AppPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -17,6 +20,6 @@ void main() {
           ),
         ),
       ),
-    ),
-  );
+    );
+  }
 }
